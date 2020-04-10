@@ -1,17 +1,25 @@
 package com.esiea.tp4A;
 
+import com.esiea.tp4A.code.GameMap;
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.Position;
 
+import java.util.Set;
+
 public class MarsRoverImpl implements MarsRover {
     private Position position;
+    private GameMap obstacles;
+    private Set<Position> obstaclesPositions;
 
     public MarsRoverImpl(int x, int y, Direction direction) {
         this.position = new Position.FixedPosition(x, y ,direction);
     }
     public MarsRoverImpl(Position position) {
         this.position = position;
+        this.obstacles = new GameMap();
+        this.obstacles.addObstacles(Position.of(0, 1, Direction.NORTH));
+        obstaclesPositions = obstacles.obstaclePositions();
     }
 
     @Override
@@ -44,15 +52,31 @@ public class MarsRoverImpl implements MarsRover {
         switch (position.getDirection()) {
             case NORTH:
                 newY++;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                {
+                    newY--;
+                }
                 break;
             case EAST:
                 newX++;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                {
+                    newX--;
+                }
                 break;
             case SOUTH:
                 newY--;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                {
+                    newY++;
+                }
                 break;
             case WEST:
                 newX--;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                {
+                    newX++;
+                }
                 break;
         }
         return Position.of(newX, newY, this.position.getDirection());
