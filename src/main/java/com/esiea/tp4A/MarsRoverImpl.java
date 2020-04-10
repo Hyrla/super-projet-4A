@@ -59,21 +59,21 @@ public class MarsRoverImpl implements MarsRover {
                 break;
             case EAST:
                 newX++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.EAST)))
                 {
                     newX--;
                 }
                 break;
             case SOUTH:
                 newY--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.SOUTH)))
                 {
                     newY++;
                 }
                 break;
             case WEST:
                 newX--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.WEST)))
                 {
                     newX++;
                 }
@@ -89,15 +89,31 @@ public class MarsRoverImpl implements MarsRover {
         switch (position.getDirection()) {
             case NORTH:
                 newY--;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                {
+                    newY++;
+                }
                 break;
             case EAST:
                 newX--;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.EAST)))
+                {
+                    newX++;
+                }
                 break;
             case SOUTH:
                 newY++;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.SOUTH)))
+                {
+                    newY--;
+                }
                 break;
             case WEST:
                 newX++;
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.WEST)))
+                {
+                    newX--;
+                }
                 break;
         }
         return Position.of(newX, newY, this.position.getDirection());
