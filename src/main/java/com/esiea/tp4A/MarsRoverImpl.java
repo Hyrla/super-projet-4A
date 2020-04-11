@@ -1,26 +1,19 @@
 package com.esiea.tp4A;
 
-import com.esiea.tp4A.code.GameMap;
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.Position;
 
-import java.util.Set;
-
 public class MarsRoverImpl implements MarsRover {
     private Position position;
-    private GameMap obstacles;
-    private Set<Position> obstaclesPositions;
+    private GameMap gameMap;
 
-    public MarsRoverImpl(int x, int y, Direction direction) {
+    public MarsRoverImpl(int x, int y, Direction direction, GameMap gameMap) {
         this.position = new Position.FixedPosition(x, y ,direction);
     }
-    public MarsRoverImpl(Position position) {
+    public MarsRoverImpl(Position position, GameMap gameMap) {
         this.position = position;
-        this.obstacles = new GameMap();
-        //todo: Add random map generator
-        this.obstacles.addObstacles(Position.of(0, 2, Direction.NORTH));
-        obstaclesPositions = obstacles.obstaclePositions();
+        this.gameMap = gameMap;
     }
 
     @Override
@@ -52,31 +45,27 @@ public class MarsRoverImpl implements MarsRover {
 
         switch (position.getDirection()) {
             case NORTH:
-                newY++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
-                {
-                    newY--;
-                }
-                break;
-            case EAST:
-                newX++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
-                {
-                    newX--;
-                }
-                break;
-            case SOUTH:
-                newY--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                if(gameMap.isPositionFree(newX, newY+1))
                 {
                     newY++;
                 }
                 break;
-            case WEST:
-                newX--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+            case EAST:
+                if(gameMap.isPositionFree(newX+1, newY))
                 {
                     newX++;
+                }
+                break;
+            case SOUTH:
+                if(gameMap.isPositionFree(newX, newY-1))
+                {
+                    newY--;
+                }
+                break;
+            case WEST:
+                if(gameMap.isPositionFree(newX-1, newY))
+                {
+                    newX--;
                 }
                 break;
         }
@@ -89,31 +78,27 @@ public class MarsRoverImpl implements MarsRover {
 
         switch (position.getDirection()) {
             case NORTH:
-                newY--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
-                {
-                    newY++;
-                }
-                break;
-            case EAST:
-                newX--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
-                {
-                    newX++;
-                }
-                break;
-            case SOUTH:
-                newY++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+                if(gameMap.isPositionFree(newX, newY-1))
                 {
                     newY--;
                 }
                 break;
-            case WEST:
-                newX++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
+            case EAST:
+                if(gameMap.isPositionFree(newX-1, newY))
                 {
                     newX--;
+                }
+                break;
+            case SOUTH:
+                if(gameMap.isPositionFree(newX, newY+1))
+                {
+                    newY++;
+                }
+                break;
+            case WEST:
+                if(gameMap.isPositionFree(newX+1, newY))
+                {
+                    newX++;
                 }
                 break;
         }

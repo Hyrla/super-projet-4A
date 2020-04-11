@@ -1,4 +1,4 @@
-package com.esiea.tp4A.code;
+package com.esiea.tp4A;
 
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.PlanetMap;
@@ -14,15 +14,21 @@ public class GameMap implements PlanetMap {
     public GameMap(HashSet<Position> obstacles) {
         this.obstacles = obstacles;
     }
+
     //Constructor without parameter to generate the map in game
     public GameMap() {
-        obstacles = new HashSet<Position>();
+        obstacles = new HashSet<>();
+
     }
-    public void addObstacles(Position position)
-    {
+
+    public void addObstacle(Position position) {
         //An obstacle with direction has no meaning
         //To simplify the test, an obstacle can only have a NORTH direction
         obstacles.add(Position.of(position.getX(), position.getY(), Direction.NORTH));
+    }
+
+    public boolean isPositionFree(int x, int y) {
+        return !obstacles.contains(Position.of(x, y, Direction.NORTH));
     }
 
     @Override
