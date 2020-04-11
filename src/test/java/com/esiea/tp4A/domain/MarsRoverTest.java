@@ -10,7 +10,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 class MarsRoverTest {
-    private final GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(Position.of(2, 2, Direction.NORTH), Position.of(-2, 0, Direction.NORTH))));
+    private final GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+        Position.of(2, 2, Direction.NORTH),
+        Position.of(-2, 0, Direction.NORTH)
+    )));
 
     private final MarsRover rover = new MarsRoverImpl(Position.of(0, 0, Direction.NORTH), gameMap, 2);
 
@@ -97,5 +100,21 @@ class MarsRoverTest {
         Assertions.assertThat(gameMap.isPositionFree(2,2))
             .as("Obstacle [2,2] is destroyed after rffls")
             .isEqualTo(true);
+    }
+
+    @Test
+    void laserShootAndMove() {
+        Assertions.assertThat(gameMap.isPositionFree(2,2))
+            .as("Obstacle [2,2] is not yet destroyed")
+            .isEqualTo(false);
+
+        Position newPosition = rover.move("rfflsff");
+
+        Assertions.assertThat(gameMap.isPositionFree(2,2))
+            .as("Obstacle [2,2] is destroyed after rffls")
+            .isEqualTo(true);
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"f\" command")
+            .isEqualTo(Position.of(2, 2, Direction.NORTH));
     }
 }
