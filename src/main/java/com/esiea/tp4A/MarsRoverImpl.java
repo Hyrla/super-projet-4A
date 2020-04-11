@@ -18,7 +18,8 @@ public class MarsRoverImpl implements MarsRover {
     public MarsRoverImpl(Position position) {
         this.position = position;
         this.obstacles = new GameMap();
-        this.obstacles.addObstacles(Position.of(0, 1, Direction.NORTH));
+        //todo: Add random map generator
+        this.obstacles.addObstacles(Position.of(0, 2, Direction.NORTH));
         obstaclesPositions = obstacles.obstaclePositions();
     }
 
@@ -59,21 +60,21 @@ public class MarsRoverImpl implements MarsRover {
                 break;
             case EAST:
                 newX++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.EAST)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
                 {
                     newX--;
                 }
                 break;
             case SOUTH:
                 newY--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.SOUTH)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
                 {
                     newY++;
                 }
                 break;
             case WEST:
                 newX--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.WEST)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
                 {
                     newX++;
                 }
@@ -96,21 +97,21 @@ public class MarsRoverImpl implements MarsRover {
                 break;
             case EAST:
                 newX--;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.EAST)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
                 {
                     newX++;
                 }
                 break;
             case SOUTH:
                 newY++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.SOUTH)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
                 {
                     newY--;
                 }
                 break;
             case WEST:
                 newX++;
-                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.WEST)))
+                if(obstaclesPositions.contains(Position.of(newX, newY, Direction.NORTH)))
                 {
                     newX--;
                 }
