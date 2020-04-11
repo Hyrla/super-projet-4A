@@ -7,13 +7,17 @@ import com.esiea.tp4A.domain.Position;
 public class MarsRoverImpl implements MarsRover {
     private Position position;
     private GameMap gameMap;
+    private int laserRange;
 
-    public MarsRoverImpl(int x, int y, Direction direction, GameMap gameMap) {
+    public MarsRoverImpl(int x, int y, Direction direction, GameMap gameMap, int laserRange) {
         this.position = new Position.FixedPosition(x, y ,direction);
+        this.laserRange = laserRange;
+        this.gameMap = gameMap;
     }
-    public MarsRoverImpl(Position position, GameMap gameMap) {
+    public MarsRoverImpl(Position position, GameMap gameMap, int laserRange) {
         this.position = position;
         this.gameMap = gameMap;
+        this.laserRange = laserRange;
     }
 
     @Override
@@ -33,6 +37,8 @@ public class MarsRoverImpl implements MarsRover {
                 case 'r' :
                     newPosition = rotateRight();
                     break;
+                case 's':
+                    laserShoot();
             }
             this.position = newPosition;
         }
@@ -145,5 +151,42 @@ public class MarsRoverImpl implements MarsRover {
         }
 
         return Position.of(this.position.getX(), this.position.getY(), newDirection);
+    }
+
+    public void laserShoot() {
+        int positionX = position.getX();
+        int positionY = position.getY();
+
+        for (int i = 1; i <= laserRange; i++) {
+
+            switch (position.getDirection()) {
+                case NORTH:
+                    if(! gameMap.isPositionFree(positionX, positionY+i))
+                    {
+                        gameMap.destroyObstacle(Position.of(positionX, positionY+i,position.getDirection()));
+                    }
+                    break;
+                case EAST:
+                    if(! gameMap.isPositionFree(positionX+i, positionY))
+                    {
+                        gameMap.destroyObstacle(Position.of(positionX+i, positionY,position.getDirection()));
+                    }
+                    break;
+                case SOUTH:
+                    if(! gameMap.isPositionFree(positionX, positionY-i))
+                    {
+                        gameMap.destroyObstacle(Position.of(positionX, positionY-i,position.getDirection()));
+                    }
+                    break;
+                case WEST:
+                    if(! gameMap.isPositionFree(positionX-i, positionY))
+                    {
+                        gameMap.destroyObstacle(Position.of(positionX-i, positionY,position.getDirection()));
+                    }
+                    break;
+            }
+
+        }
+
     }
 }
