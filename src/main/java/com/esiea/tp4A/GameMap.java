@@ -27,6 +27,10 @@ public class GameMap implements PlanetMap {
         obstacles.add(Position.of(position.getX(), position.getY(), Direction.NORTH));
     }
 
+    public void destroyObstacle(Position position){
+        obstacles.remove(position);
+    }
+
     public boolean isPositionFree(int x, int y) {
         return !obstacles.contains(Position.of(x, y, Direction.NORTH));
     }
