@@ -163,25 +163,25 @@ public class MarsRoverImpl implements MarsRover {
                 case NORTH:
                     if(! gameMap.isPositionFree(positionX, positionY+i))
                     {
-                        gameMap.destroyObstacle(Position.of(positionX, positionY+i,position.getDirection()));
+                        gameMap.destroyObstacle(Position.of(positionX, positionY+i,Direction.NORTH));
                     }
                     break;
                 case EAST:
                     if(! gameMap.isPositionFree(positionX+i, positionY))
                     {
-                        gameMap.destroyObstacle(Position.of(positionX+i, positionY,position.getDirection()));
+                        gameMap.destroyObstacle(Position.of(positionX+i, positionY,Direction.NORTH));
                     }
                     break;
                 case SOUTH:
                     if(! gameMap.isPositionFree(positionX, positionY-i))
                     {
-                        gameMap.destroyObstacle(Position.of(positionX, positionY-i,position.getDirection()));
+                        gameMap.destroyObstacle(Position.of(positionX, positionY-i,Direction.NORTH));
                     }
                     break;
                 case WEST:
                     if(! gameMap.isPositionFree(positionX-i, positionY))
                     {
-                        gameMap.destroyObstacle(Position.of(positionX-i, positionY,position.getDirection()));
+                        gameMap.destroyObstacle(Position.of(positionX-i, positionY,Direction.NORTH));
                     }
                     break;
             }
