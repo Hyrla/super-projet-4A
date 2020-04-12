@@ -49,6 +49,7 @@ public class MarsRoverImplTest {
 
         Assertions.assertThat(newPosition)
             .as("Rover position after \"b\" command")
+
             .isEqualTo(Position.of(0, -1, Direction.NORTH));
     }
 
@@ -64,6 +65,7 @@ public class MarsRoverImplTest {
 
         Assertions.assertThat(newPosition)
             .as("Rover position after \"l\" command")
+
             .isEqualTo(Position.of(0, 0, Direction.WEST));
     }
 
@@ -79,6 +81,7 @@ public class MarsRoverImplTest {
 
         Assertions.assertThat(newPosition)
             .as("Rover position after \"r\" command")
+
             .isEqualTo(Position.of(0, 0, Direction.EAST));
     }
 
@@ -94,6 +97,7 @@ public class MarsRoverImplTest {
 
         Assertions.assertThat(newPosition)
             .as("Rover position after \"frfl\" command")
+
             .isEqualTo(Position.of(1, 1, Direction.NORTH));
     }
 
@@ -109,6 +113,7 @@ public class MarsRoverImplTest {
 
         Assertions.assertThat(newPosition)
             .as("Rover position after \"frFRfrFrblBLbLbl\" command")
+
             .isEqualTo(Position.of(0, 0, Direction.NORTH));
     }
 
@@ -124,6 +129,7 @@ public class MarsRoverImplTest {
 
         Assertions.assertThat(newPosition)
             .as("Rover position after \"lff\" command")
+
             .isEqualTo(Position.of(-1, 0, Direction.WEST));
     }
 
@@ -139,6 +145,7 @@ public class MarsRoverImplTest {
 
         Assertions.assertThat(newPosition)
             .as("Rover position after \"ffrff\" command")
+
             .isEqualTo(Position.of(1, 2, Direction.EAST));
     }
 
