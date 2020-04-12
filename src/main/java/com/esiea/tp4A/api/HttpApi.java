@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class HttpApi implements Api{
 
-    private static HashMap<Object, MarsRover> players;
+    private static HashMap<String, MarsRover> players;
 
     public static void main(String[] args) throws IOException {
         players = new HashMap<>();
@@ -34,28 +34,34 @@ public class HttpApi implements Api{
         Integer HttpReturnCode = 404;
 
         if (exchange.getRequestMethod().equals("GET")){
-            String playername = path.substring(path.lastIndexOf('/') + 1);
+            String[] segments = path.split("/");
+            String playername = segments[3];
+
             if (path.startsWith("/api/player/") && !playername.isEmpty()){
-                returnValue = "Get player " + path.substring(path.lastIndexOf('/') + 1);
+                returnValue = "Get player " + playername;
                 HttpReturnCode = 200;
             }
         }
         else if(exchange.getRequestMethod().equals("POST")){
-            String playername = path.substring(path.lastIndexOf('/') + 1);
+            String[] segments = path.split("/");
+            String playername = segments[3];
+
             if (path.startsWith("/api/player/") && !playername.isEmpty()){
-                returnValue = "Post player " + path.substring(path.lastIndexOf('/') + 1);
+                returnValue = "Post player " + playername;
                 HttpReturnCode = 201;
             }
         }
         else if (exchange.getRequestMethod().equals("PATCH")){
-            String playername = path.substring(path.lastIndexOf('/') + 1);
-            String command = path.substring(path.lastIndexOf('/') + 2);
+            String[] segments = path.split("/");
+            String playername = segments[3];
+            String command = segments[4];
+            System.out.print(playername + " " + command);
+
             if (path.startsWith("/api/player/") && !playername.isEmpty() && !command.isEmpty()){
                 returnValue = "Patch command " + command +
-                    " to player " + path.substring(path.lastIndexOf('/') + 1);
+                    " to player " + playername;
                 HttpReturnCode = 201;
             }
-
         }
 
         exchange.sendResponseHeaders(HttpReturnCode, returnValue.getBytes().length);
