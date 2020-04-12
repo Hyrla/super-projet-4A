@@ -39,6 +39,8 @@ public class MarsRoverImpl implements MarsRover {
                     break;
                 case 's':
                     laserShoot();
+                default:
+                    break;
             }
             this.position = newPosition;
         }
