@@ -12,13 +12,13 @@ public class MarsRoverImplTest {
 
     @Test
     void createMarsRoverWithPosition(){
-        GameMap gameMap = new GameMap(null);
+        GameMap gameMap = new GameMap(100);
         MarsRoverImpl rover = new MarsRoverImpl(Position.of(0, 0, Direction.NORTH), gameMap, 1);
     }
 
     @Test
     void createMarsRoverWithXY() {
-        GameMap gameMap = new GameMap(null);
+        GameMap gameMap = new GameMap(100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 1);
     }
 
@@ -27,7 +27,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("f");
@@ -42,7 +42,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("b");
@@ -58,7 +58,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("l");
@@ -74,7 +74,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("r");
@@ -90,7 +90,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("frfl");
@@ -106,7 +106,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("frFRfrFrblBLbLbl");
@@ -122,7 +122,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("lff");
@@ -138,7 +138,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("ffrff");
@@ -154,7 +154,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )),100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Assertions.assertThat(gameMap.isPositionFree(2,2))
@@ -173,7 +173,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Assertions.assertThat(gameMap.isPositionFree(2,2))
@@ -195,7 +195,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-1, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.WEST, gameMap, 2);
 
         rover.move("s");
@@ -210,7 +210,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(0, -1, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.SOUTH, gameMap, 2);
 
         rover.move("s");
@@ -225,7 +225,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(1, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.EAST, gameMap, 2);
 
         rover.move("s");
@@ -242,7 +242,7 @@ public class MarsRoverImplTest {
             Position.of(-1, 0, Direction.NORTH),
             Position.of(0, 1, Direction.NORTH),
             Position.of(0, -1, Direction.NORTH)
-            )));
+            )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 1);
 
         Position newPosition = rover.move("frfrfrfr");
@@ -259,7 +259,7 @@ public class MarsRoverImplTest {
             Position.of(-1, 0, Direction.NORTH),
             Position.of(0, 1, Direction.NORTH),
             Position.of(0, -1, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 1);
 
         Position newPosition = rover.move("brbrbrbr");
@@ -271,7 +271,7 @@ public class MarsRoverImplTest {
 
     @Test
     void rover_move_from_different_origin() {
-        GameMap gameMap = new GameMap();
+        GameMap gameMap = new GameMap(100);
         MarsRoverImpl rover = new MarsRoverImpl(10, 20, Direction.WEST, gameMap, 2);
 
         Position newPosition = rover.move("fflblb");
@@ -286,7 +286,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("l;");
@@ -301,7 +301,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 3, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("fqf");
@@ -316,7 +316,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("f r");
@@ -331,7 +331,7 @@ public class MarsRoverImplTest {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
-        )));
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
 
         Position newPosition = rover.move("b+b");
@@ -339,6 +339,24 @@ public class MarsRoverImplTest {
         Assertions.assertThat(newPosition)
             .as("Rover position after \"b+b\" command")
             .isEqualTo(Position.of(0, -2, Direction.NORTH));
+    }
+
+    @Test
+    void rover_move_above_map_size_limit() {
+        GameMap gameMap = new GameMap(100);
+        MarsRoverImpl rover = new MarsRoverImpl(48, 48, Direction.NORTH, gameMap, 2);
+
+        Position newPosition = rover.move("fff");
+
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"fff\" command while started at 48, 48")
+            .isEqualTo(Position.of(48, -49, Direction.NORTH));
+
+        newPosition = rover.move("rfff");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"fff\" command while started at 48, -49")
+            .isEqualTo(Position.of(-49, -49, Direction.EAST));
+
     }
 }
 
