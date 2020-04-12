@@ -27,7 +27,8 @@ public class PositionTest {
     }
 
     @Test
-    void positionEqualWrongPostion(){
+    void positionEqualWrongPosition(){
+
         Position position = new Position.FixedPosition(0,0,Direction.NORTH);
 
         Assertions.assertThat(!position.equals(new Position.FixedPosition(1,0,Direction.NORTH)));
@@ -36,7 +37,8 @@ public class PositionTest {
     }
 
     @Test
-    void positionEqualGoodPostion(){
+    void positionEqualGoodPosition(){
+
         Position position = new Position.FixedPosition(0,0,Direction.NORTH);
 
         Assertions.assertThat(position.equals(new Position.FixedPosition(0,0,Direction.NORTH)));
