@@ -90,12 +90,22 @@ public class HttpApi implements Api{
             String[] segments = path.split("/");
                 String playername = segments[3];
                 String command = segments[4];
-                System.out.print(playername + " " + command);
 
                 if (path.startsWith("/api/player/") && !playername.isEmpty() && !command.isEmpty()) {
-                    returnValue = "Patch command " + command +
-                        " to player " + playername;
-                    HttpReturnCode = 201;
+                    if ((command.equals("f")
+                        || command.equals("b")
+                        || command.equals("r")
+                        || command.equals("l")
+                        || command.equals("s"))
+                    && players.containsKey(playername)){
+                        players.get(playername).move(command);
+                        returnValue = "Player " + playername + " done command " + command;
+                    }
+                    else{
+                        returnValue = "Incorrect command !";
+                        HttpReturnCode = 404;
+                    }
+
                 }
             }
 
