@@ -225,5 +225,38 @@ public class MarsRoverImplTest {
             .isEqualTo(true);
     }
 
+    @Test
+    void roverMoveFrontSurrounded(){
+        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+            Position.of(1, 0, Direction.NORTH),
+            Position.of(-1, 0, Direction.NORTH),
+            Position.of(0, 1, Direction.NORTH),
+            Position.of(0, -1, Direction.NORTH)
+            )));
+        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 1);
+
+        Position newPosition = rover.move("frfrfrfr");
+
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"frfrfrfr\" command but surrounded")
+            .isEqualTo(Position.of(0, 0, Direction.NORTH));
+    }
+
+    @Test
+    void roverMoveBackSurrounded(){
+        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+            Position.of(1, 0, Direction.NORTH),
+            Position.of(-1, 0, Direction.NORTH),
+            Position.of(0, 1, Direction.NORTH),
+            Position.of(0, -1, Direction.NORTH)
+        )));
+        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 1);
+
+        Position newPosition = rover.move("brbrbrbr");
+
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"brbrbrbr\" command but surrounded")
+            .isEqualTo(Position.of(0, 0, Direction.NORTH));
+    }
 }
 
