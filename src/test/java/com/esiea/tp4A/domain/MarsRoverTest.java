@@ -10,111 +10,27 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 class MarsRoverTest {
-    private final GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
-        Position.of(2, 2, Direction.NORTH),
-        Position.of(-2, 0, Direction.NORTH)
-    )));
-
-    private final MarsRover rover = new MarsRoverImpl(Position.of(0, 0, Direction.NORTH), gameMap, 2);
-
     @Test
-    void move_forward() {
-        Position newPosition = rover.move("f");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(0, 1, Direction.NORTH));
+    public void initializeTest(){
+        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(null),1);
+        Assertions.assertThat(marsRover.initialize(Position.of(0,0, Direction.NORTH))).isEqualTo(marsRover);
     }
 
     @Test
-    void move_backward() {
-        Position newPosition = rover.move("b");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(0, -1, Direction.NORTH));
+    public void moveTest(){
+        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(null),1);
+        Assertions.assertThat(marsRover.move("x")).isEqualTo(Position.of(0,0, Direction.NORTH));
     }
 
     @Test
-    void rotate_left() {
-        Position newPosition = rover.move("l");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(0, 0, Direction.WEST));
+    public void updateMapTest(){
+        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(null),1);
+        Assertions.assertThat(marsRover.updateMap(new GameMap(null))).isEqualTo(marsRover);
     }
 
     @Test
-    void rotate_right() {
-        Position newPosition = rover.move("r");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(0, 0, Direction.EAST));
-    }
-
-    @Test
-    void move_up_right() {
-        Position newPosition = rover.move("frfl");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(1, 1, Direction.NORTH));
-    }
-
-    @Test
-    void move_2_circles() {
-        Position newPosition = rover.move("frFRfrFrblBLbLbl");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(0, 0, Direction.NORTH));
-    }
-
-    @Test
-    void move_to_obstacle_neg2_0() {
-        Position newPosition = rover.move("lff");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(-1, 0, Direction.WEST));
-    }
-
-    @Test
-    void move_to_obstacle_2_2() {
-        Position newPosition = rover.move("ffrff");
-
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(1, 2, Direction.EAST));
-    }
-
-    @Test
-    void laserShoot() {
-        Assertions.assertThat(gameMap.isPositionFree(2,2))
-            .as("Obstacle [2,2] is not yet destroyed")
-            .isEqualTo(false);
-
-        rover.move("rffls");
-
-        Assertions.assertThat(gameMap.isPositionFree(2,2))
-            .as("Obstacle [2,2] is destroyed after rffls")
-            .isEqualTo(true);
-    }
-
-    @Test
-    void laserShootAndMove() {
-        Assertions.assertThat(gameMap.isPositionFree(2,2))
-            .as("Obstacle [2,2] is not yet destroyed")
-            .isEqualTo(false);
-
-        Position newPosition = rover.move("rfflsff");
-
-        Assertions.assertThat(gameMap.isPositionFree(2,2))
-            .as("Obstacle [2,2] is destroyed after rffls")
-            .isEqualTo(true);
-        Assertions.assertThat(newPosition)
-            .as("Rover position after \"f\" command")
-            .isEqualTo(Position.of(2, 2, Direction.NORTH));
+    public void configureLaserRangeTest(){
+        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(null),30);
+        Assertions.assertThat(marsRover.configureLaserRange(30)).isEqualTo(marsRover);
     }
 }
