@@ -9,12 +9,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
-public class HttpApi {
+
+public class HttpApi implements Api{
 
     private static HashMap<Object, MarsRover> players;
 
@@ -48,11 +47,51 @@ public class HttpApi {
                 HttpReturnCode = 201;
             }
         }
+        else if (exchange.getRequestMethod().equals("PATCH")){
+            String playername = path.substring(path.lastIndexOf('/') + 1);
+            String command = path.substring(path.lastIndexOf('/') + 2);
+            if (path.startsWith("/api/player/") && !playername.isEmpty() && !command.isEmpty()){
+                returnValue = "Patch command " + command +
+                    " to player " + path.substring(path.lastIndexOf('/') + 1);
+                HttpReturnCode = 201;
+            }
+
+        }
 
         exchange.sendResponseHeaders(HttpReturnCode, returnValue.getBytes().length);
         OutputStream os = exchange.getResponseBody();
         os.write(returnValue.getBytes());
         os.close();
+    }
+
+    @Override
+    public Position getPosition(MarsRover rover) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Position> getRadarData(MarsRover rover, int range) {
+        return null;
+    }
+
+    @Override
+    public int getLaserRange(MarsRover rover) {
+        return 0;
+    }
+
+    @Override
+    public Position move(MarsRover rover, String command) {
+        return null;
+    }
+
+    @Override
+    public void laserShoot(MarsRover rover) {
+
+    }
+
+    @Override
+    public boolean isPilotAlive(MarsRover rover) {
+        return false;
     }
 
 /*    private void getPlayer(String playername){
