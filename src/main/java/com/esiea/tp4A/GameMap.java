@@ -9,16 +9,22 @@ import java.util.*;
 public class GameMap implements PlanetMap {
 
     private Set<Position> obstacles;
+    private int size;
 
     //Constructor with parameter, to use a default map
-    public GameMap(HashSet<Position> obstacles) {
+    public GameMap(HashSet<Position> obstacles, int size) {
         this.obstacles = obstacles;
+        this.size = size;
     }
 
     //Constructor without parameter to generate the map in game
-    public GameMap() {
+    public GameMap(int size) {
         obstacles = new HashSet<>();
+        this.size = size;
+    }
 
+    public int getSize() {
+        return size;
     }
 
     public void addObstacle(Position position) {
@@ -33,6 +39,18 @@ public class GameMap implements PlanetMap {
 
     public boolean isPositionFree(int x, int y) {
         return !obstacles.contains(Position.of(x, y, Direction.NORTH));
+    }
+
+    public int getRealX(int x) {
+        int parity = x / (size/2);
+        int realValue = x % (size/2);
+        return (parity % 2 == 1) ? realValue - (size/2) : realValue;
+    }
+
+    public int getRealY(int y) {
+        int parity = y / (size/2);
+        int realValue = y % (size/2);
+        return (parity % 2 == 1) ? realValue - (size/2) : realValue;
     }
 
     @Override

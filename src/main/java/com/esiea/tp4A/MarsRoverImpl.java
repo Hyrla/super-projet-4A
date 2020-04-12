@@ -53,27 +53,27 @@ public class MarsRoverImpl implements MarsRover {
 
         switch (position.getDirection()) {
             case NORTH:
-                if(gameMap.isPositionFree(newX, newY+1))
+                if(gameMap.isPositionFree(newX, gameMap.getRealY(newY+1)))
                 {
-                    newY++;
+                    newY = gameMap.getRealY(newY+1);
                 }
                 break;
             case EAST:
-                if(gameMap.isPositionFree(newX+1, newY))
+                if(gameMap.isPositionFree(gameMap.getRealX(newX+1), newY))
                 {
-                    newX++;
+                    newX = gameMap.getRealX(newX+1);
                 }
                 break;
             case SOUTH:
-                if(gameMap.isPositionFree(newX, newY-1))
+                if(gameMap.isPositionFree(newX, gameMap.getRealY(newY-1)))
                 {
-                    newY--;
+                    newY = gameMap.getRealY(newY-1);
                 }
                 break;
             case WEST:
-                if(gameMap.isPositionFree(newX-1, newY))
+                if(gameMap.isPositionFree(gameMap.getRealX(newX-1), newY))
                 {
-                    newX--;
+                    newX = gameMap.getRealX(newX-1);
                 }
                 break;
         }
@@ -86,27 +86,27 @@ public class MarsRoverImpl implements MarsRover {
 
         switch (position.getDirection()) {
             case NORTH:
-                if(gameMap.isPositionFree(newX, newY-1))
+                if(gameMap.isPositionFree(newX, gameMap.getRealY(newY-1)))
                 {
-                    newY--;
+                    newY = gameMap.getRealY(newY-1);
                 }
                 break;
             case EAST:
-                if(gameMap.isPositionFree(newX-1, newY))
+                if(gameMap.isPositionFree(gameMap.getRealX(newX-1), newY))
                 {
-                    newX--;
+                    newX = gameMap.getRealX(newX-1);
                 }
                 break;
             case SOUTH:
-                if(gameMap.isPositionFree(newX, newY+1))
+                if(gameMap.isPositionFree(newX, gameMap.getRealY(newY+1)))
                 {
-                    newY++;
+                    newY = gameMap.getRealY(newY+1);
                 }
                 break;
             case WEST:
-                if(gameMap.isPositionFree(newX+1, newY))
+                if(gameMap.isPositionFree(gameMap.getRealX(newX+1), newY))
                 {
-                    newX++;
+                    newX = gameMap.getRealX(newX+1);
                 }
                 break;
         }
