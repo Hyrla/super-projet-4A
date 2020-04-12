@@ -143,7 +143,7 @@ public class MarsRoverImplTest {
     }
 
     @Test
-    void laserShoot() {
+    void laserShootNorth() {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
@@ -162,7 +162,7 @@ public class MarsRoverImplTest {
     }
 
     @Test
-    void laserShootAndMove() {
+    void laserShootNorthAndMove() {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
@@ -182,5 +182,48 @@ public class MarsRoverImplTest {
             .as("Rover position after \"f\" command")
             .isEqualTo(Position.of(2, 2, Direction.NORTH));
     }
+
+    @Test
+    void laserShootWest(){
+        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+            Position.of(-1, 0, Direction.NORTH)
+        )));
+        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.WEST, gameMap, 2);
+
+        rover.move("s");
+
+        Assertions.assertThat(gameMap.isPositionFree(-1,0))
+            .as("Obstacle [-1,0] is destroyed after s")
+            .isEqualTo(true);
+    }
+
+    @Test
+    void laserShootSouth(){
+        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+            Position.of(0, -1, Direction.NORTH)
+        )));
+        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.SOUTH, gameMap, 2);
+
+        rover.move("s");
+
+        Assertions.assertThat(gameMap.isPositionFree(0,-1))
+            .as("Obstacle [0,-1] is destroyed after s")
+            .isEqualTo(true);
+    }
+
+    @Test
+    void laserShootEast(){
+        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+            Position.of(1, 0, Direction.NORTH)
+        )));
+        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.EAST, gameMap, 2);
+
+        rover.move("s");
+
+        Assertions.assertThat(gameMap.isPositionFree(1,0))
+            .as("Obstacle [1,0] is destroyed after s")
+            .isEqualTo(true);
+    }
+
 }
 
