@@ -40,7 +40,7 @@ public class HttpApi implements Api{
 
     public HttpApi() throws IOException {
         players = new HashMap<>();
-        gameMap = new GameMap(new HashSet<>(generateRandomThings(10, 50)));
+        gameMap = new GameMap(new HashSet<>(generateRandomThings(10, 50)), 100);
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         HttpContext context = server.createContext("/");

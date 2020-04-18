@@ -41,4 +41,22 @@ public class GameMapTest {
             new HashSet<>(Arrays.asList(Position.of(2, 2, Direction.NORTH)))
         );
     }
+
+    @Test
+    void getRealX(){
+        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+            Position.of(2, 2, Direction.NORTH)
+        )), 100);
+
+        Assertions.assertThat(gameMap.getRealX(151)).isEqualTo(-49);
+    }
+
+    @Test
+    void getRealy(){
+        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
+            Position.of(2, 2, Direction.NORTH)
+        )), 100);
+
+        Assertions.assertThat(gameMap.getRealY(-151)).isEqualTo(49);
+    }
 }

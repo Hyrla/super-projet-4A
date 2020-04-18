@@ -42,15 +42,35 @@ public class GameMap implements PlanetMap {
     }
 
     public int getRealX(int x) {
-        int parity = x / (size/2);
-        int realValue = x % (size/2);
-        return (parity % 2 == 1) ? realValue - (size/2) : realValue;
+        int parity;
+        int realValue;
+        if (x > 0) {
+            parity = ((x - 1) / (size / 2)) % 2;
+            realValue = x % (size / 2);
+            if (realValue == 0) { realValue = size / 2; }
+        }
+        else {
+            parity = -1 * (((x / (size / 2)) - 1) % 2);
+            realValue = (x % (-1 * (size / 2))) + 50;
+        }
+
+        return (parity == 1) ? realValue - (size / 2) : realValue;
     }
 
     public int getRealY(int y) {
-        int parity = y / (size/2);
-        int realValue = y % (size/2);
-        return (parity % 2 == 1) ? realValue - (size/2) : realValue;
+        int parity;
+        int realValue;
+        if (y > 0) {
+            parity = ((y - 1) / (size / 2)) % 2;
+            realValue = y % (size / 2);
+            if (realValue == 0) { realValue = size / 2; }
+        }
+        else {
+            parity = -1 * (((y / (size / 2)) - 1) % 2);
+            realValue = (y % (-1 * (size / 2))) + 50;
+        }
+
+        return (parity == 1) ? realValue - (size / 2) : realValue;
     }
 
     @Override

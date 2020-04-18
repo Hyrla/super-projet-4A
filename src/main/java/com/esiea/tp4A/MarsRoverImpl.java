@@ -10,7 +10,7 @@ public class MarsRoverImpl implements MarsRover {
     private int laserRange;
 
     public MarsRoverImpl(int x, int y, Direction direction, GameMap gameMap, int laserRange) {
-        this.position = new Position.FixedPosition(x, y ,direction);
+        this.position = new Position.FixedPosition(gameMap.getRealX(x), gameMap.getRealY(y) ,direction);
         this.laserRange = laserRange;
         this.gameMap = gameMap;
     }
