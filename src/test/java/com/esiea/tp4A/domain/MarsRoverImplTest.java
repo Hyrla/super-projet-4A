@@ -242,7 +242,7 @@ public class MarsRoverImplTest {
             Position.of(-1, 0, Direction.NORTH),
             Position.of(0, 1, Direction.NORTH),
             Position.of(0, -1, Direction.NORTH)
-            )), 100);
+        )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 1);
 
         Position newPosition = rover.move("frfrfrfr");
@@ -282,60 +282,31 @@ public class MarsRoverImplTest {
     }
 
     @Test
-    void unknownCommand1() {
+    void unknown_command() {
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH),
             Position.of(-2, 0, Direction.NORTH)
         )), 100);
         MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
-
         Position newPosition = rover.move("l;");
-
         Assertions.assertThat(newPosition)
             .as("Rover position after \"l;\" command")
             .isEqualTo(Position.of(0, 0, Direction.WEST));
-    }
 
-    @Test
-    void unknownCommand2() {
-        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
-            Position.of(2, 3, Direction.NORTH),
-            Position.of(-2, 0, Direction.NORTH)
-        )), 100);
-        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
-
-        Position newPosition = rover.move("fqf");
-
+        rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
+        newPosition = rover.move("fqf");
         Assertions.assertThat(newPosition)
             .as("Rover position after \"fqf\" command")
             .isEqualTo(Position.of(0, 2, Direction.NORTH));
-    }
 
-    @Test
-    void unknownCommand3() {
-        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
-            Position.of(2, 2, Direction.NORTH),
-            Position.of(-2, 0, Direction.NORTH)
-        )), 100);
-        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
-
-        Position newPosition = rover.move("f r");
-
+        rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
+        newPosition = rover.move("f r");
         Assertions.assertThat(newPosition)
             .as("Rover position after \"f r\" command")
             .isEqualTo(Position.of(0, 1, Direction.EAST));
-    }
 
-    @Test
-    void unknownCommand4() {
-        GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
-            Position.of(2, 2, Direction.NORTH),
-            Position.of(-2, 0, Direction.NORTH)
-        )), 100);
-        MarsRoverImpl rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
-
-        Position newPosition = rover.move("b+b");
-
+        rover = new MarsRoverImpl(0, 0, Direction.NORTH, gameMap, 2);
+        newPosition = rover.move("b+b");
         Assertions.assertThat(newPosition)
             .as("Rover position after \"b+b\" command")
             .isEqualTo(Position.of(0, -2, Direction.NORTH));
@@ -349,14 +320,83 @@ public class MarsRoverImplTest {
         Position newPosition = rover.move("fff");
 
         Assertions.assertThat(newPosition)
-            .as("Rover position after \"fff\" command while started at 48, 48")
+            .as("Rover position after \"fff\" command while started at 48, 48 NORTH")
             .isEqualTo(Position.of(48, -49, Direction.NORTH));
 
         newPosition = rover.move("rfff");
         Assertions.assertThat(newPosition)
-            .as("Rover position after \"fff\" command while started at 48, -49")
+            .as("Rover position after \"rfff\" command while started at 48, -49 NORTH")
             .isEqualTo(Position.of(-49, -49, Direction.EAST));
 
+        newPosition = rover.move("rfff");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"rfff\" command while started at -49, -49 EAST")
+            .isEqualTo(Position.of(-49, 48, Direction.SOUTH));
+    }
+
+    @Test
+    void create_rover_at_out_of_map_position() {
+        GameMap gameMap = new GameMap(100);
+        MarsRoverImpl rover = new MarsRoverImpl(112, -52, Direction.NORTH, gameMap, 2);
+
+        Position newPosition = rover.move("");
+
+        Assertions.assertThat(newPosition)
+            .as("Rover position after creation")
+            .isEqualTo(Position.of(12, 48, Direction.NORTH));
+    }
+
+    @Test
+    void complex_moves_from_different_origin() {
+        GameMap gameMap = new GameMap(100);
+
+        MarsRoverImpl rover = new MarsRoverImpl(5, -3, Direction.WEST, gameMap, 2);
+        Position newPosition = rover.move("ff");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"ff\" command while started at 48, 48 WEST")
+            .isEqualTo(Position.of(3, -3, Direction.WEST));
+
+        rover = new MarsRoverImpl(5, -3, Direction.WEST, gameMap, 2);
+        newPosition = rover.move("lbblffr");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"lbblffr\" command while started at 48, 48 WEST")
+            .isEqualTo(Position.of(7, -1, Direction.SOUTH));
+
+        rover = new MarsRoverImpl(500, -300, Direction.NORTH, gameMap, 2);
+        newPosition = rover.move("flf");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"flf\" command while started at 500, -300 (0, 0) NORTH")
+            .isEqualTo(Position.of(-1, 1, Direction.WEST));
+    }
+
+
+    @Test
+    void unknown_command_should_be_ignored() {
+        GameMap gameMap = new GameMap(100);
+
+        MarsRoverImpl rover = new MarsRoverImpl(-2, 1, Direction.SOUTH, gameMap, 2);
+        Position newPosition = rover.move("aff");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"aff\" command while started at -2, 1 SOUTH")
+            .isEqualTo(Position.of(-2, -1, Direction.SOUTH));
+
+        rover = new MarsRoverImpl(-2, 1, Direction.SOUTH, gameMap, 2);
+        newPosition = rover.move("f f");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"f f\" command while started at -2, 1 SOUTH")
+            .isEqualTo(Position.of(-2, -1, Direction.SOUTH));
+
+        rover = new MarsRoverImpl(-2, 1, Direction.SOUTH, gameMap, 2);
+        newPosition = rover.move("f,f");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"f,f\" command while started at -2, 1 SOUTH")
+            .isEqualTo(Position.of(-2, -1, Direction.SOUTH));
+
+        rover = new MarsRoverImpl(-2, 1, Direction.SOUTH, gameMap, 2);
+        newPosition = rover.move("ff;");
+        Assertions.assertThat(newPosition)
+            .as("Rover position after \"ff;\" command while started at -2, 1 SOUTH")
+            .isEqualTo(Position.of(-2, -1, Direction.SOUTH));
     }
 }
 

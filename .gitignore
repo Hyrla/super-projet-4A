@@ -13,6 +13,7 @@
 # IntelliJ IDEA files
 .idea/
 super-projet-4A.iml
+*.iml
 
 # Package Files #
 *.jar
@@ -26,7 +27,7 @@ super-projet-4A.iml
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-
+.iml
 .classpath
 .project
 .settings
