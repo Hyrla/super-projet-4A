@@ -8,7 +8,7 @@ import java.util.*;
 
 public class GameMap implements PlanetMap {
 
-    private Set<Position> obstacles;
+    private Set<Position> obstacles; // This variable is not final because it has to be modified to add or remove obstacles
     private int size;
 
     //Constructor with parameter, to use a default map
@@ -38,7 +38,7 @@ public class GameMap implements PlanetMap {
     }
 
     public boolean isPositionFree(int x, int y) {
-        return !obstacles.contains(Position.of(x, y, Direction.NORTH));
+        return !obstacles.contains(Position.of(getRealX(x), getRealY(y), Direction.NORTH));
     }
 
     public int getRealX(int x) {

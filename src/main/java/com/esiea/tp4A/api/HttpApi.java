@@ -20,7 +20,7 @@ import java.util.HashSet;
 
 
 public class HttpApi implements Api{
-    private static HashMap<String, MarsRover> players;
+    private static HashMap<String, MarsRover> players; // These 2 variables cannot be final because we have to edit them in the class
     private static GameMap gameMap;
 
     public static void main(String[] args) throws IOException {
