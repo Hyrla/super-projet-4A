@@ -1,6 +1,7 @@
 package com.esiea.tp4A;
 
 import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
 
@@ -8,7 +9,13 @@ import java.util.*;
 
 public class GameMap implements PlanetMap {
 
-    private Set<Position> obstacles; // This variable is not final because it has to be modified to add or remove obstacles
+    public String getObstacles() {
+        return obstacles.toString();
+    }
+
+    private HashSet<Position> obstacles; // This variable is not final because it has to be modified to add or remove obstacles
+
+
     private int size;
 
     //Constructor with parameter, to use a default map
@@ -19,7 +26,8 @@ public class GameMap implements PlanetMap {
 
     //Constructor without parameter to generate the map in game
     public GameMap(int size) {
-        obstacles = new HashSet<>();
+        this.obstacles = new HashSet<>();
+
         this.size = size;
     }
 
@@ -53,7 +61,6 @@ public class GameMap implements PlanetMap {
             parity = -1 * (((x / (size / 2)) - 1) % 2);
             realValue = (x % (-1 * (size / 2))) + 50;
         }
-
         return (parity == 1) ? realValue - (size / 2) : realValue;
     }
 
@@ -69,7 +76,6 @@ public class GameMap implements PlanetMap {
             parity = -1 * (((y / (size / 2)) - 1) % 2);
             realValue = (y % (-1 * (size / 2))) + 50;
         }
-
         return (parity == 1) ? realValue - (size / 2) : realValue;
     }
 
