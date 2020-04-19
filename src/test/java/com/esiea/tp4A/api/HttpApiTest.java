@@ -100,7 +100,7 @@ public class HttpApiTest {
             URL url2 = new URL("http://localhost:8080/api/player/joueur2");
             HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
             con2.setRequestMethod("POST");
-            Assertions.assertThat(con.getResponseCode() == 409);
+            Assertions.assertThat(con2.getResponseCode() == 409);
         } catch (Exception e) {
             Assertions.assertThat(false);
         }
