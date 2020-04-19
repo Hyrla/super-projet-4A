@@ -8,7 +8,11 @@ import java.util.*;
 
 public class GameMap implements PlanetMap {
 
-    private Set<Position> obstacles; // This variable is not final because it has to be modified to add or remove obstacles
+    public String getObstacles() {
+        return obstacles.toString();
+    }
+
+    private HashSet<Position> obstacles; // This variable is not final because it has to be modified to add or remove obstacles
     private int size;
 
     //Constructor with parameter, to use a default map
