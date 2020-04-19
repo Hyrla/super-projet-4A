@@ -56,11 +56,10 @@ public class HttpApi implements Api {
     @ResponseStatus(code = HttpStatus.CONFLICT, reason = "player already exists")
     private class PlayerAlreadyExists extends RuntimeException { }
 
-    // Refactoring in progress
-    public Position getPosition(MarsRover rover) { return null; }
+    public Position getPosition(MarsRover rover) { return rover.move("x"); }
     public ArrayList<Position> getRadarData(MarsRover rover, int range) { return null; }
-    public int getLaserRange(MarsRover rover) { return 0; }
-    public Position move(MarsRover rover, String command) { return null; }
-    public void laserShoot(MarsRover rover) { }
-    public boolean isPilotAlive(MarsRover rover) { return false; }
+    public int getLaserRange(MarsRoverImpl rover) { return rover.getLaserRange(); }
+    public Position move(MarsRover rover, String command) { return rover.move(command); }
+    public void laserShoot(MarsRoverImpl rover) { rover.laserShoot(); }
+    public boolean isPilotAlive(MarsRover rover) { return true; }
 }
