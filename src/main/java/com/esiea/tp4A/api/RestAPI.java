@@ -17,8 +17,5 @@ import java.util.HashSet;
 public class RestAPI extends SpringBootServletInitializer {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(RestAPI.class);
-        if (args.equals("DEBUG")){
-            context.close();
-        }
     }
 }
