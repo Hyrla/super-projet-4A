@@ -52,7 +52,7 @@ public class GameMapTest {
     }
 
     @Test
-    void getRealy(){
+    void getRealY(){
         GameMap gameMap = new GameMap(new HashSet<>(Arrays.asList(
             Position.of(2, 2, Direction.NORTH)
         )), 100);
