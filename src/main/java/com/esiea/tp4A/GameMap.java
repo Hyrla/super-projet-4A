@@ -15,6 +15,7 @@ public class GameMap implements PlanetMap {
 
     private HashSet<Position> obstacles; // This variable is not final because it has to be modified to add or remove obstacles
 
+
     private int size;
 
     //Constructor with parameter, to use a default map
@@ -26,6 +27,7 @@ public class GameMap implements PlanetMap {
     //Constructor without parameter to generate the map in game
     public GameMap(int size) {
         this.obstacles = new HashSet<>();
+
         this.size = size;
     }
 
