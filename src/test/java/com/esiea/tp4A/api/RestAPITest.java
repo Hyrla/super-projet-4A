@@ -16,7 +16,7 @@ public class RestAPITest {
 
     @Test
     void mainTest() {
-        String[] args = {""};
+        String[] args = {"DEBUG"};
         RestAPI.main(args);
         try {
             URL url = new URL("http://localhost:8080/api/players");

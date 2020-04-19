@@ -7,6 +7,7 @@ import com.esiea.tp4A.domain.Position;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,7 +31,7 @@ public class HttpApiTest {
 
     @Test
     void testWebserver() {
-        SpringApplication.run(RestAPI.class);
+        ConfigurableApplicationContext context = SpringApplication.run(RestAPI.class);
         try {
             URL url = new URL("http://localhost:8080/api/players");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -69,5 +70,6 @@ public class HttpApiTest {
         } catch (Exception e) {
             Assertions.assertThat(false);
         }
+        context.close();
     }
 }

@@ -5,6 +5,9 @@ import com.esiea.tp4A.MarsRoverImpl;
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.Position;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
