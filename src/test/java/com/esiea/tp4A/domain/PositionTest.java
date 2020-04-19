@@ -1,38 +1,59 @@
 package com.esiea.tp4A.domain;
 
-import com.esiea.tp4A.MarsRoverImpl;
-import com.esiea.tp4A.GameMap;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class MarsRoverTest {
+public class PositionTest {
+
     @Test
-    void initializeTest(){
-        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(100),1);
-        Assertions.assertThat(marsRover.initialize(Position.of(0,0, Direction.NORTH))).isEqualTo(marsRover);
+    void positionEqualItself(){
+        Position position = new Position.FixedPosition(0,0,Direction.NORTH);
+
+        Assertions.assertThat(position.equals(position));
     }
 
     @Test
-    void moveTest(){
-        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(100),1);
-        Assertions.assertThat(marsRover.move("x")).isEqualTo(Position.of(0,0, Direction.NORTH));
+    void positionEqualNull(){
+        Position position = new Position.FixedPosition(0,0,Direction.NORTH);
+
+        Assertions.assertThat(!position.equals(null));
     }
 
     @Test
-    void updateMapTest(){
-        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(100),1);
-        Assertions.assertThat(marsRover.updateMap(new GameMap(100))).isEqualTo(marsRover);
+    void positionEqualOtherClass(){
+        Position position = new Position.FixedPosition(0,0,Direction.NORTH);
+
+        Assertions.assertThat(!position.equals(1));
     }
 
     @Test
-    void configureLaserRangeTest(){
-        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(100),30);
-        Assertions.assertThat(marsRover.configureLaserRange(30)).isEqualTo(marsRover);
+    void positionEqualWrongPosition(){
+
+        Position position = new Position.FixedPosition(0,0,Direction.NORTH);
+
+        Assertions.assertThat(!position.equals(new Position.FixedPosition(1,0,Direction.NORTH)));
+        Assertions.assertThat(!position.equals(new Position.FixedPosition(0,1,Direction.NORTH)));
+        Assertions.assertThat(!position.equals(new Position.FixedPosition(1,0,Direction.SOUTH)));
     }
 
     @Test
-    void initialMove() {
-        MarsRover marsRover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(100),30);
-        Assertions.assertThat(marsRover.move("f").equals(new Position.FixedPosition(0, 1, Direction.NORTH)));
+    void positionEqualGoodPosition(){
+
+        Position position = new Position.FixedPosition(0,0,Direction.NORTH);
+
+        Assertions.assertThat(position.equals(new Position.FixedPosition(0,0,Direction.NORTH)));
+    }
+
+    @Test
+    void positionToString() {
+        Position position = new Position.FixedPosition(0, 0, Direction.NORTH);
+        Assertions.assertThat(position.toString().equals("FixedPosition{x=0, y=0, direction=NORTH}"));
+    }
+
+    @Test
+    void positionEqualsAnother() {
+        Position position1 = new Position.FixedPosition(0, 0, Direction.NORTH);
+        Position position2 = new Position.FixedPosition(0, 0, Direction.NORTH);
+        Assertions.assertThat(position1.equals(position2));
     }
 }
