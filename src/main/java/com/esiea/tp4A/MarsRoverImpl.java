@@ -29,7 +29,8 @@ public class MarsRoverImpl implements MarsRover {
                 case 'b': newPosition = moveBackward(); break;
                 case 'l': newPosition = rotateLeft(); break;
                 case 'r': newPosition = rotateRight(); break;
-                case 's': laserShoot(); break; }
+                case 's': laserShoot(); break;
+                default: break;}
             this.position = newPosition; }
         return position; }
 
@@ -41,6 +42,7 @@ public class MarsRoverImpl implements MarsRover {
             case EAST:  if(gameMap.isPositionFree(gameMap.getRealX(newX+1), newY)) { newX = gameMap.getRealX(newX+1); } break;
             case SOUTH: if(gameMap.isPositionFree(newX, gameMap.getRealY(newY-1))) { newY = gameMap.getRealY(newY-1); } break;
             case WEST:  if(gameMap.isPositionFree(gameMap.getRealX(newX-1), newY)) { newX = gameMap.getRealX(newX-1); } break;
+            default: break;
         }
         return Position.of(newX, newY, this.position.getDirection());
     }
@@ -53,6 +55,7 @@ public class MarsRoverImpl implements MarsRover {
             case EAST:  if(gameMap.isPositionFree(gameMap.getRealX(newX-1), newY)) { newX = gameMap.getRealX(newX-1); } break;
             case SOUTH: if(gameMap.isPositionFree(newX, gameMap.getRealY(newY+1))) { newY = gameMap.getRealY(newY+1); } break;
             case WEST:  if(gameMap.isPositionFree(gameMap.getRealX(newX+1), newY)) { newX = gameMap.getRealX(newX+1); } break;
+            default: break;
         }
         return Position.of(newX, newY, this.position.getDirection());
     }
@@ -64,6 +67,7 @@ public class MarsRoverImpl implements MarsRover {
             case EAST: newDirection = Direction.NORTH; break;
             case SOUTH: newDirection = Direction.EAST; break;
             case WEST: newDirection = Direction.SOUTH; break;
+            default: break;
         }
         return Position.of(this.position.getX(), this.position.getY(), newDirection);
     }
@@ -75,6 +79,7 @@ public class MarsRoverImpl implements MarsRover {
             case EAST: newDirection = Direction.SOUTH; break;
             case SOUTH: newDirection = Direction.WEST; break;
             case WEST: newDirection = Direction.NORTH; break;
+            default: break;
         }
         return Position.of(this.position.getX(), this.position.getY(), newDirection);
     }
@@ -88,6 +93,7 @@ public class MarsRoverImpl implements MarsRover {
                 case EAST:  if(!gameMap.isPositionFree(gameMap.getRealX(positionX+i), positionY)) { gameMap.destroyObstacle(Position.of(gameMap.getRealX(positionX+i), positionY, Direction.NORTH)); } break;
                 case SOUTH: if(!gameMap.isPositionFree(positionX, gameMap.getRealY(positionY-i))) { gameMap.destroyObstacle(Position.of(positionX, gameMap.getRealY(positionY-i), Direction.NORTH)); } break;
                 case WEST:  if(!gameMap.isPositionFree(gameMap.getRealX(positionX-i), positionY)) { gameMap.destroyObstacle(Position.of(gameMap.getRealX(positionX-i), positionY, Direction.NORTH)); } break;
-        } }
+                default: break;
+            } }
     }
 }
