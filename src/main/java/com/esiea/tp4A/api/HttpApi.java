@@ -26,15 +26,18 @@ public class HttpApi implements Api {
 
     @RequestMapping(value = "/api/player/{playername}", method = RequestMethod.POST)
     public MarsRover newRover(@PathVariable String playername) {
-        MarsRover newrover = new MarsRoverImpl(0,0, Direction.NORTH, new GameMap(100),1);
-        players.put(playername,newrover);
-        return players.get(playername);
+        MarsRover newrover = new MarsRoverImpl(0,0, Direction.NORTH, gameMap,1);
+        MarsRover mr = players.get(playername);
+        if (mr != null) { throw new PlayerAlreadyExists(); } else {
+            players.put(playername, newrover);
+            return players.get(playername);
+        }
     }
 
     @RequestMapping(value = "/api/player/{playername}/{command}", method = RequestMethod.PATCH)
     public Position move(@PathVariable String playername, @PathVariable String command) {
         MarsRover rover = players.get(playername);
-        return rover.move(command);
+        if (rover == null) { throw new PlayerNotFoundException(); } else { return rover.move(command); }
     }
 
     private ArrayList<Position> generateRandomThings(int number, int range) {
@@ -50,7 +53,10 @@ public class HttpApi implements Api {
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "player not found")
     private class PlayerNotFoundException extends RuntimeException { }
+    @ResponseStatus(code = HttpStatus.CONFLICT, reason = "player already exists")
+    private class PlayerAlreadyExists extends RuntimeException { }
 
+    // Refactoring in progress
     public Position getPosition(MarsRover rover) { return null; }
     public ArrayList<Position> getRadarData(MarsRover rover, int range) { return null; }
     public int getLaserRange(MarsRover rover) { return 0; }
