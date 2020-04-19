@@ -5,7 +5,6 @@ import com.esiea.tp4A.MarsRoverImpl;
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.Position;
-import org.springframework.boot.SpringApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +21,11 @@ public class HttpApi implements Api {
     public MarsRover getRover(@PathVariable String playername) {
         MarsRover mr = players.get(playername);
         if (mr == null) { throw new PlayerNotFoundException(); } else { return mr; }
+    }
+
+    @RequestMapping(value = "/api/players", method = RequestMethod.GET)
+    public HashMap<String, MarsRover> getRovers() {
+        return players;
     }
 
     @RequestMapping(value = "/api/player/{playername}", method = RequestMethod.POST)
@@ -56,6 +60,7 @@ public class HttpApi implements Api {
     @ResponseStatus(code = HttpStatus.CONFLICT, reason = "player already exists")
     private class PlayerAlreadyExists extends RuntimeException { }
 
+    // Refactoring in progress
     public Position getPosition(MarsRover rover) { return rover.move("x"); }
     public ArrayList<Position> getRadarData(MarsRover rover, int range) { return null; }
     public int getLaserRange(MarsRoverImpl rover) { return rover.getLaserRange(); }
