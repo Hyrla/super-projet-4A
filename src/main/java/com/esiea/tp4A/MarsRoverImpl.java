@@ -90,4 +90,20 @@ public class MarsRoverImpl implements MarsRover {
                 case WEST:  if(!gameMap.isPositionFree(gameMap.getRealX(positionX-i), positionY)) { gameMap.destroyObstacle(Position.of(gameMap.getRealX(positionX-i), positionY, Direction.NORTH)); } break;
         } }
     }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
+    }
+
+    public int getLaserRange() {
+        return laserRange;
+    }
 }
