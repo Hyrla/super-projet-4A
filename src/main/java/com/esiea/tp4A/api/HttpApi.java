@@ -6,6 +6,7 @@ import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.Position;
 import org.springframework.boot.SpringApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class HttpApi implements Api {
 
     @RequestMapping(value = "/api/player/{playername}", method = RequestMethod.GET)
     public MarsRover getRover(@PathVariable String playername) {
-        return players.get(playername);
+        MarsRover mr = players.get(playername);
+        if (mr == null) { throw new PlayerNotFoundException(); } else { return mr; }
     }
 
     @RequestMapping(value = "/api/player/{playername}", method = RequestMethod.POST)
@@ -46,27 +48,13 @@ public class HttpApi implements Api {
         return a;
     }
 
-    public Position getPosition(MarsRover rover) {
-        return null;
-    }
+    @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "player not found")
+    private class PlayerNotFoundException extends RuntimeException { }
 
-    public ArrayList<Position> getRadarData(MarsRover rover, int range) {
-        return null;
-    }
-
-    public int getLaserRange(MarsRover rover) {
-        return 0;
-    }
-
-    public Position move(MarsRover rover, String command) {
-        return null;
-    }
-
-    public void laserShoot(MarsRover rover) {
-
-    }
-
-    public boolean isPilotAlive(MarsRover rover) {
-        return false;
-    }
+    public Position getPosition(MarsRover rover) { return null; }
+    public ArrayList<Position> getRadarData(MarsRover rover, int range) { return null; }
+    public int getLaserRange(MarsRover rover) { return 0; }
+    public Position move(MarsRover rover, String command) { return null; }
+    public void laserShoot(MarsRover rover) { }
+    public boolean isPilotAlive(MarsRover rover) { return false; }
 }
