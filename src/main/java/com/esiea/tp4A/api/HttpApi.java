@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 @RestController
-public class HttpApi{
+public class HttpApi implements Api {
     private HashMap<String, MarsRover> players = new HashMap<>();
     private GameMap gameMap = new GameMap(new HashSet<>(generateRandomThings(10, 50)), 100);
 
@@ -44,5 +44,29 @@ public class HttpApi{
                 Direction.NORTH));
         }
         return a;
+    }
+
+    public Position getPosition(MarsRover rover) {
+        return null;
+    }
+
+    public ArrayList<Position> getRadarData(MarsRover rover, int range) {
+        return null;
+    }
+
+    public int getLaserRange(MarsRover rover) {
+        return 0;
+    }
+
+    public Position move(MarsRover rover, String command) {
+        return null;
+    }
+
+    public void laserShoot(MarsRover rover) {
+
+    }
+
+    public boolean isPilotAlive(MarsRover rover) {
+        return false;
     }
 }
