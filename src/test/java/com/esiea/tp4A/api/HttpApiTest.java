@@ -32,6 +32,7 @@ public class HttpApiTest {
     @Test
     void testWebserver() {
         ConfigurableApplicationContext context = SpringApplication.run(RestAPI.class);
+        // Trying to get all players
         try {
             URL url = new URL("http://localhost:8080/api/players");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -41,6 +42,7 @@ public class HttpApiTest {
             Assertions.assertThat(false);
         }
 
+        // Trying to create a player
         try {
             URL url = new URL("http://localhost:8080/api/player/joueur");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -50,6 +52,7 @@ public class HttpApiTest {
             Assertions.assertThat(false);
         }
 
+        // Trying to get an existing player
         try {
             URL url = new URL("http://localhost:8080/api/player/joueur");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -59,11 +62,42 @@ public class HttpApiTest {
             Assertions.assertThat(false);
         }
 
+        // Trying to get a non existant player
+        try {
+            URL url = new URL("http://localhost:8080/api/player/joueurpasla");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            Assertions.assertThat(con.getResponseCode() == 404);
+        } catch (Exception e) {
+            Assertions.assertThat(false);
+        }
+
+        // Trying to move an existing player
         try {
             URL url = new URL("http://localhost:8080/api/player/joueur");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("PATCH");
+            Assertions.assertThat(con.getResponseCode() == 200);
+        } catch (Exception e) {
+            Assertions.assertThat(false);
+        }
+
+        // Trying to move a non existing player
+        try {
+            URL url = new URL("http://localhost:8080/api/player/joueurpasla");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("PATCH");
+            Assertions.assertThat(con.getResponseCode() == 404);
+        } catch (Exception e) {
+            Assertions.assertThat(false);
+        }
+
+        // Trying to create 2 players with same name
+        try {
+            URL url = new URL("http://localhost:8080/api/player/joueur2");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
-            URL url2 = new URL("http://localhost:8080/api/player/joueur");
+            URL url2 = new URL("http://localhost:8080/api/player/joueur2");
             HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
             con2.setRequestMethod("POST");
             Assertions.assertThat(con.getResponseCode() == 409);
